@@ -6,7 +6,7 @@ build-backend = "flit_core.buildapi"
 module = "pyutter"
 author = "mmwa"
 author-email = ""
-home-page = "https://github.com/mmwa/plutter"
+home-page = "https://github.com/mmwa/pyutter"
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Intended Audience :: Information Technology",
