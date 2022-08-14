@@ -1,12 +1,17 @@
 <html>
-    <head>
-        <style>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <style>
 html, body, div {{ margin:0;}}
 {style}
-</style>
-    </head>
-    <body></body>
-        <script>
+
+
+    </style>
+</head>
+<body></body>
+<script>
             var global_pointers = {{}};
             window.post = function(url, data) {{
                 return fetch(url, {{
@@ -71,5 +76,7 @@ var render = (obj) => {{
 }}
 
 window.onload = render(body, null);
-        </script>
+
+
+</script>
 </html>

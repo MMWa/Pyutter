@@ -4,8 +4,8 @@ from pyutter.core.primitive import Style, Widget
 
 
 class Container(Widget):
-    def __init__(self, children: List[Any], id=None, style: Style = None):
-        super().__init__('div', children, id, style)
+    def __init__(self, children: List[Any], id=None, style: Style = None, base_style_class=None):
+        super().__init__('div', children, id, style, base_style_class=base_style_class)
 
 
 class Center(Container):

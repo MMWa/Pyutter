@@ -5,6 +5,17 @@ window.call = function (url, method, data) {
         redirect: "follow"
     });
 };
+function addCss(fileName) {
+
+  var head = document.head;
+  var link = document.createElement("link");
+
+  link.type = "text/css";
+  link.rel = "stylesheet";
+  link.href = fileName;
+
+  head.appendChild(link);
+}
 
 var global_pointers = {};
 var global_data_sources = {};

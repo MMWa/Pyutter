@@ -3,9 +3,9 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
 from pyutter.core.primitive import Style, Image, View
-from pyutter.widgets.layout import Center, Row, Expanded, Padding, Spacer, Grid
-from pyutter.widgets.material import Card, Chip
-from pyutter.widgets.text import H2, P, H1
+from pyutter.widgets.layout import Center, Row, Expanded, Spacer, Grid
+from pyutter.widgets.material import Card, Chip, CardImage, CardBody
+from pyutter.widgets.text import H2, P
 
 intro_string = '''The content on this page is generated from python code. Lorem ipsum dolor sit amet, consectetur  
 adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,  
@@ -22,16 +22,15 @@ card_style = Style(width='400px')
 def card_generator():
     for x in range(10):
         yield Card(children=[
-            Image(src=f'https://picsum.photos/400/200?random={x}', style=image_style),
-            Padding.all(pad=16,
-                        children=[
-                            H2(['Simple Card Object']),
-                            Row(children=[
-                                Expanded(),
-                                Chip(children=[P(['Hello: ']), P(['👋'])]),
-                            ]),
-                            P([intro_string])
-                        ])
+            CardImage(children=[Image(src=f'https://picsum.photos/400/200?random={x}', style=image_style)]),
+            CardBody(
+                children=[
+                    H2(['Simple Card Object']),
+                    Row(children=[
+                        Expanded(),
+                    ]),
+                    P([intro_string])
+                ])
         ], style=card_style
         )
 

@@ -1,33 +1,53 @@
 from typing import List, Any
 
+from pyutter.core.primitive import Style, Widget, TextWidget
 from pyutter.widgets.layout import Container
-from pyutter.core.primitive import Style, Widget
 
 
 class Card(Container):
     def __init__(self, children: List[Any], id=None, style: Style = None):
         style = style if style is not None else Style()
-        style['box-shadow'] = '0 4px 8px 0 rgba(0,0,0,0.2)'
-        style['border-radius'] = '0px'
-        style['background'] = 'white'
-
-        super().__init__(children, id, style)
+        super().__init__(children, id, style, base_style_class="card")
 
 
-class Chip(Container):
-    def __init__(self, children: List[Any], id=None, size: int = 32, style: Style = None):
+class CardBody(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
         style = style if style is not None else Style()
-        style['display'] = 'flex'
-        style['padding'] = f'0 {size / 2}px'
-        style['align-items'] = 'center'
-        style['height'] = f'{size}px'
-        style['line-height'] = f'{size}px'
-        style['border-radius'] = f'{size / 2}px'
-        style['background-color'] = '#f1f1f1'
-        style['margin-bottom'] = '5px'
-        style['margin-right'] = '5px'
+        super().__init__(children, id, style, base_style_class="card-body")
 
-        super().__init__(children, id, style)
+
+class CardImage(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__(children, id, style, base_style_class="card-image")
+
+
+class CardHeader(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__(children, id, style, base_style_class="card-header")
+
+
+class CardFooter(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__(children, id, style, base_style_class="card-footer")
+
+
+class Chip(TextWidget):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__("span", children, id, style, base_style_class="chip")
+
+
+# TODO: add avatar
+
+class Toast(Container):
+    def __init__(self, children: List[Any], toast_type=None, id=None, style: Style = None):
+        style = style if style is not None else Style()
+        # toast-primary, toast-success, toast-warning or toast-error
+        toast_type = " " + toast_type if toast_type is not None else ""
+        super().__init__(children, id, style, base_style_class="toast" + toast_type)
 
 
 class AppBar(Widget):
@@ -43,3 +63,39 @@ class AppBar(Widget):
 
         # style['box-shadow']= "var(--bs-sm)"
         super().__init__('div', children, id, style)
+
+
+class Panel(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__(children, id, style, base_style_class="panel")
+
+
+class PanelHeader(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__(children, id, style, base_style_class="panel-header")
+
+
+class PanelTitle(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__(children, id, style, base_style_class="panel-title")
+
+
+class PanelNav(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__(children, id, style, base_style_class="panel-nav")
+
+
+class PanelBody(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__(children, id, style, base_style_class="panel-body")
+
+
+class PanelFooter(Container):
+    def __init__(self, children: List[Any], id=None, style: Style = None):
+        style = style if style is not None else Style()
+        super().__init__(children, id, style, base_style_class="panel-footer")

@@ -77,7 +77,7 @@ class TextController(State):
 
 
 class Widget:
-    def __init__(self, tag, children: List[Any] = None, id=None, style=None, action=None):
+    def __init__(self, tag, children: List[Any] = None, id=None, style=None, action=None, base_style_class=None):
         self.traits = {
             'render': 1
         }
@@ -85,6 +85,7 @@ class Widget:
         self.child = children if children is not None else []
         self.id = id if id is not None else generate_id()
         self.style = style if style is not None else Style()
+        self.base_style_class = base_style_class + " " if base_style_class is not None else ""
         # self.style['display'] = 'flex'
 
         self.action = action
@@ -103,7 +104,7 @@ class Widget:
     def __properties__(self):
         return {
             'id': self.id,
-            'class': self.style.id,
+            'class': self.base_style_class + self.style.id,
             'style': self.style,
             'tag': self.tag,
             'children': [x()() if inspect.isfunction(x) else x() for x in self.child],
@@ -160,7 +161,12 @@ html, body, div {{ margin:0;}}
         <script>
 var body = {desc};
 {file()}
-window.onload = render(body, null);
+window.onload = () => {{
+    addCss("https://unpkg.com/spectre.css/dist/spectre.min.css")
+    addCss("https://unpkg.com/spectre.css/dist/spectre-exp.min.css")
+    addCss("https://unpkg.com/spectre.css/dist/spectre-icons.min.css")
+    render(body, null)
+}};
 window.post = function(url, data) {{
     return fetch(url, {{
         method: "POST",
@@ -182,7 +188,7 @@ class Text(Widget):
 
 
 class TextWidget(Widget):
-    def __init__(self, tag='div', child: List[Any] = None, id=None, style: Style = None):
+    def __init__(self, tag='div', child: List[Any] = None, id=None, style: Style = None, base_style_class=None):
         child = [] if child is None else child
         objs = []
         for obj in child:
@@ -191,12 +197,12 @@ class TextWidget(Widget):
                 objs.append(t)
             else:
                 objs.append(obj)
-        super().__init__(tag, objs, id, style)
+        super().__init__(tag, objs, id, style, base_style_class=base_style_class)
 
 
 class ButtonWidget(Widget):
-    def __init__(self, children: List[Any], id=None, style: Style = None, action: Function = None):
-        super().__init__('button', children, id, style, action)
+    def __init__(self, children: List[Any], id=None, style: Style = None, action: Function = None, base_style_class=None):
+        super().__init__('button', children, id, style, action, base_style_class=base_style_class)
 
         if self.action is not None:
             self.traits['actionId'] = action.id
