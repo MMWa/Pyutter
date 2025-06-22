@@ -186,9 +186,12 @@ class TextWidget(Widget):
         child = [] if child is None else child
         objs = []
         for obj in child:
-            if not issubclass(obj.__class__, Widget) or not issubclass(obj.__class__, State):
-                t = Text(text=obj)
-                objs.append(t)
+            # only wrap plain values in a Text widget. Existing Widget and
+            # State instances should be preserved. The previous implementation
+            # used ``or`` which incorrectly wrapped Widget subclasses that were
+            # not also ``State`` subclasses.
+            if not isinstance(obj, Widget) and not isinstance(obj, State):
+                objs.append(Text(text=obj))
             else:
                 objs.append(obj)
         super().__init__(tag, objs, id, style)
